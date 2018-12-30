@@ -1,0 +1,10 @@
+.vscode/
+.idea/
+lib/
+
+node_modules/
+.nyc_output/
+coverage/
+
+*-lock.json
+*sample*
