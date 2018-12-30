@@ -1,0 +1,29 @@
+{
+  "name": "sf2s3oc-p",
+  "version": "0.1.0",
+  "description": "Sync Folder To S3 On Change",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/et4891/sf2s3oc-p.git"
+  },
+  "keywords": [
+    "s3",
+    "aws",
+    "chokidar"
+  ],
+  "author": "ET",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/et4891/sf2s3oc-p/issues"
+  },
+  "homepage": "https://github.com/et4891/sf2s3oc-p#readme",
+  "dependencies": {
+    "aws-sdk": "^2.382.0",
+    "chokidar": "^2.0.4"
+  }
+}
