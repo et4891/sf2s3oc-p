@@ -4,12 +4,11 @@ const { IGNORE_FILES_TO_S3, IGNORE_FOLDERS } = require(`${__consts}/regex`);
 const { getFileStat } = require(`${__func}/common`);
 const { compareObjectMT } = require(`${__func}/s3`);
 
-exports.s3Put = async (filePath, watchPath, AWS, s3Config = {}) => {
+exports.s3Put = async (filePath, watchPath, s3, s3Config = {}) => {
     try {
         fs.readFile(filePath, async (err, fileBinary) => {
             if (err) throw err;
 
-            const s3 = new AWS.S3();
             const Key = filePath.replace(watchPath, '');
             const filename = Key.split('/').pop();
 
