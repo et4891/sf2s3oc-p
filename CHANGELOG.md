@@ -3,6 +3,9 @@
 ## ChangeLog
 
 ### Dec. 30, 2018
+**v0.3.3**
+-reorganized `s3Put()` logic
+
 **v0.3.2**
 - handled `try/catch` in `compareObjectMT()`
 

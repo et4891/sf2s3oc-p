@@ -39,8 +39,8 @@ module.exports = {
         // });
 
         watcher.on('change', (filePath, stats) => {
+            if (stats) this.log(`-----------File ${filePath} changed size to ${stats.size}-----------`);
             s3Put(filePath, watchPath, s3, s3Config);
-            if (stats) this.log(`File ${filePath} changed size to ${stats.size}`);
         });
     }
 };
