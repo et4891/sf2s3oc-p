@@ -1,5 +1,4 @@
 const fs = require('fs');
-// const { AWS_KEYS } = require(`${__s3Consts}`);
 const { IGNORE_FILES_TO_S3, IGNORE_FOLDERS } = require(`${__consts}/regex`);
 const { getFileStat } = require(`${__func}/common`);
 const { compareObjectMT } = require(`${__func}/s3`);
