@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { IGNORE_FILES_TO_S3, IGNORE_FOLDERS } = require(`${__consts}/regex`);
 const { getFileStat } = require(`${__func}/common`);
-const { compareObjectMT } = require(`${__func}/s3`);
+const { getS3Obj, compareFile } = require(`${__func}/s3`);
 
 exports.s3Put = async (filePath, watchPath, s3, s3Config = {}) => {
     try {
@@ -28,26 +28,24 @@ exports.s3Put = async (filePath, watchPath, s3, s3Config = {}) => {
                 }
             };
 
-            compareObjectMT(
-                s3,
-                Key,
-                getStat,
-                s3Config.bucket
-            ).then(async data => {
-                // if key/file exists modify it
-                // compare some metadata first to see if modify or not
-                if (!data) {
-                    const s3po = await s3.putObject(s3PutParams).promise();
-                    console.log(s3po, 'successful response');
-                    console.log(`File ${filePath} has been modified`);
-                }
-            }).catch(async err => {
-                // if key/file does not exist, add it
+            // check if file object exists on bucket
+            const s3ObjExist = await getS3Obj(s3, Key, s3Config.bucket);
+
+            // if object does not exist, then create the file
+            if (!s3ObjExist) {
                 const s3po = await s3.putObject(s3PutParams).promise();
-                console.log(err.message, `error: (add key because not exist) -> ${Key}`);
-                // console.log(s3po, 'successful response');
-                console.log(`File ${filePath} has been added`);
-            });
+                console.log(`${JSON.stringify(s3po)}\nFile ${filePath} has been added`);
+                return;
+            }
+            // console.log(s3ObjExist, 's3ObjExists3ObjExists3ObjExist');
+
+            // if object exist then compare local and s3 file to see if need to modify the file
+            const cf = compareFile(s3ObjExist, getStat);
+            // console.log(cf, 'cffffffffffffffffff');
+            if (cf) {
+                const s3po = await s3.putObject(s3PutParams).promise();
+                console.log(`${JSON.stringify(s3po)}\nFile ${filePath} has been modified`);
+            }
         });
     } catch (e) {
         console.log(e, 's3Add');
