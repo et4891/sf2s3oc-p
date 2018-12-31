@@ -22,7 +22,7 @@ module.exports = {
         });
         const s3 = new AWS.S3();
         const watcher = chokidar.watch(watchPath, {
-            ignored: /(^|[\/\\])\../,
+            // ignored: /(^|[\/\\])\../,
             persistent: true
         });
 

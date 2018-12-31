@@ -2,6 +2,10 @@
 
 ## ChangeLog
 
+### Dec. 31, 2018
+**v0.3.4**
+- removed chokidar ignores all . files and folders
+
 ### Dec. 30, 2018
 **v0.3.3**
 - reorganized `s3Put()` logic
