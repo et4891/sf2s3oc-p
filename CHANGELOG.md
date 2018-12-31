@@ -3,6 +3,9 @@
 ## ChangeLog
 
 ### Dec. 30, 2018
+**v0.3.2**
+- handled `try/catch` in `compareObjectMT()`
+
 **v0.3.1**
 - added `s3PutDir()` but not in use YET
 
