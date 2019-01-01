@@ -45,11 +45,23 @@ exports.writeLog = (fullPath, content) => {
     const filename = pathSplit.pop();
     const directory = pathSplit.join('/');
     mkDirByPathSync(directory);
-    fs.writeFile(`${directory}/${filename}`, content, (err) => {
-        if (err) return console.log(err);
+    try {
+        if (fs.existsSync(fullPath)) {
+            fs.appendFile(fullPath, content, (err) => {
+                if (err) return console.log(err);
 
-        console.log('The log was saved!');
-    });
+                console.log('The log is modified!');
+            });
+        } else {
+            fs.writeFile(fullPath, content, (err) => {
+                if (err) return console.log(err);
+
+                console.log('The log is created!');
+            });
+        }
+    } catch (err) {
+        console.log(err, 'writeLog');
+    }
 };
 
 exports.dateNow = () => {

@@ -35,7 +35,7 @@ exports.s3Put = async (filePath, watchPath, s3, s3Config = {}) => {
             // if object does not exist, then create the file
             if (!s3ObjExist) {
                 const s3po = await s3.putObject(s3PutParams).promise();
-                await writeLog('./log/add.txt', `${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been added`);
+                await writeLog('./log/add.txt', `${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been added\n`);
                 console.log(`${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been added`);
                 return;
             }
@@ -46,7 +46,7 @@ exports.s3Put = async (filePath, watchPath, s3, s3Config = {}) => {
             // console.log(cf, 'cffffffffffffffffff');
             if (cf) {
                 const s3po = await s3.putObject(s3PutParams).promise();
-                await writeLog('./log/modified.txt', `${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been modified`);
+                await writeLog('./log/modified.txt', `${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been modified\n`);
                 console.log(`${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been modified`);
             }
         });
