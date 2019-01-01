@@ -1,4 +1,6 @@
-exports.s3DeleteDir = async (filePath, watchPath, s3, s3Config) => {
+const { dateNow, writeLog } = require(`${__func}/common`);
+
+exports.s3DeleteDir = async (filePath, watchPath, s3, s3Config, options) => {
     try {
         const Prefix = filePath.replace(watchPath, '');  // prefix is the folder will be removed
         // console.log(Prefix, 'Prefixxxxxxxxxxxxxx');
@@ -25,6 +27,7 @@ exports.s3DeleteDir = async (filePath, watchPath, s3, s3Config) => {
             deleteParams.Delete.Objects.push({ Key });
         });
 
+        await writeLog(options.logPath.remove, `${dateNow()} - Directory ${filePath} has been removed\n`);
         console.log(`Directory ${filePath} has been removed`);
     } catch (e) {
         console.log(e.code, 's3DeleteDir');

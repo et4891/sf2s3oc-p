@@ -1,6 +1,6 @@
 const { dateNow, writeLog } = require(`${__func}/common`);
 
-exports.s3Delete = async (filePath, watchPath, s3, s3Config = {}) => {
+exports.s3Delete = async (filePath, watchPath, s3, s3Config = {}, options) => {
     try {
         const Key = filePath.replace(watchPath, '');
 
@@ -20,7 +20,7 @@ exports.s3Delete = async (filePath, watchPath, s3, s3Config = {}) => {
         //     }
         //     */
         // });
-        await writeLog('./log/remove.txt', `${JSON.stringify(s3do)}\n${dateNow()} - File ${filePath} has been removed\n`);
+        await writeLog(options.logPath.remove, `${JSON.stringify(s3do)}\n${dateNow()} - File ${filePath} has been removed\n`);
         console.log(`${JSON.stringify(s3do)}\n${dateNow()} - File ${filePath} has been removed`);
         // console.log(`File ${filePath} has been removed`)
     } catch (e) {

@@ -3,7 +3,7 @@ const { IGNORE_FILES_TO_S3, IGNORE_FOLDERS } = require(`${__consts}/regex`);
 const { getFileStat, dateNow, writeLog } = require(`${__func}/common`);
 const { getS3Obj, compareFile } = require(`${__func}/s3`);
 
-exports.s3Put = async (filePath, watchPath, s3, s3Config = {}) => {
+exports.s3Put = async (filePath, watchPath, s3, s3Config = {}, options) => {
     try {
         fs.readFile(filePath, async (err, fileBinary) => {
             if (err) throw err;
@@ -32,10 +32,11 @@ exports.s3Put = async (filePath, watchPath, s3, s3Config = {}) => {
             // check if file object exists on bucket
             const s3ObjExist = await getS3Obj(s3, Key, s3Config.bucket);
 
+            console.log(options, 'optionsss');
             // if object does not exist, then create the file
             if (!s3ObjExist) {
                 const s3po = await s3.putObject(s3PutParams).promise();
-                await writeLog('./log/add.txt', `${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been added\n`);
+                await writeLog(options.logPath.add, `${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been added\n`);
                 console.log(`${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been added`);
                 return;
             }
@@ -46,7 +47,7 @@ exports.s3Put = async (filePath, watchPath, s3, s3Config = {}) => {
             // console.log(cf, 'cffffffffffffffffff');
             if (cf) {
                 const s3po = await s3.putObject(s3PutParams).promise();
-                await writeLog('./log/modified.txt', `${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been modified\n`);
+                await writeLog(options.logPath.modified, `${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been modified\n`);
                 console.log(`${JSON.stringify(s3po)}\n${dateNow()} - File ${filePath} has been modified`);
             }
         });
