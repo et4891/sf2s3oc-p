@@ -14,7 +14,8 @@ exports.startWatch = function (watchPath, awsConfig, s3Config) {
     });
     const s3 = new AWS.S3();
     const watcher = chokidar.watch(watchPath, {
-        ignored: /(^|[\/\\])\../,
+        // ignored: /(^|[\/\\])\../,
+        // ignored: [/^\.goutputstream/],
         persistent: true
     });
 
