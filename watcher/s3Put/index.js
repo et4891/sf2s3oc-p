@@ -32,7 +32,7 @@ exports.s3Put = async (filePath, watchPath, s3, s3Config = {}, options) => {
             // check if file object exists on bucket
             const s3ObjExist = await getS3Obj(s3, Key, s3Config.bucket);
 
-            console.log(options, 'optionsss');
+            // console.log(options, 'optionsss');
             // if object does not exist, then create the file
             if (!s3ObjExist) {
                 const s3po = await s3.putObject(s3PutParams).promise();
