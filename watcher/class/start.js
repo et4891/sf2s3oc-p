@@ -6,7 +6,7 @@ const { s3Put } = require('../s3Put');
 const { s3Delete } = require('../s3Delete');
 const { s3DeleteDir } = require('../s3DeleteDir');
 
-exports.startWatch = function (watchPath, awsConfig, s3Config) {
+exports.startWatch = function (watchPath, awsConfig, s3Config, options) {
     if (!watchPath) return console.log('Please enter a path to watch');
     AWS.config.update({
         accessKeyId: awsConfig.accessKeyId,
@@ -21,10 +21,10 @@ exports.startWatch = function (watchPath, awsConfig, s3Config) {
 
     // Add event listeners.
     watcher
-        .on('add', filePath => s3Put(filePath, watchPath, s3, s3Config))
-        .on('unlink', filePath => s3Delete(filePath, watchPath, s3, s3Config))
+        .on('add', filePath => s3Put(filePath, watchPath, s3, s3Config, options))
+        .on('unlink', filePath => s3Delete(filePath, watchPath, s3, s3Config, options))
         .on('addDir', path => (`Directory ${path} has been added`))
-        .on('unlinkDir', filePath => s3DeleteDir(filePath, watchPath, s3, s3Config))
+        .on('unlinkDir', filePath => s3DeleteDir(filePath, watchPath, s3, s3Config, options))
         .on('error', error => console.log(`Watcher error: ${error}`))
         .on('ready', () => console.log('Initial scan complete. Ready for changes'));
     // .on('raw', (event, path, details) => {
@@ -33,7 +33,7 @@ exports.startWatch = function (watchPath, awsConfig, s3Config) {
 
     watcher.on('change', (filePath, stats) => {
         if (stats) console.log(`-----------File ${filePath} changed size to ${stats.size}-----------`);
-        s3Put(filePath, watchPath, s3, s3Config);
+        s3Put(filePath, watchPath, s3, s3Config, options);
     });
 
 };
