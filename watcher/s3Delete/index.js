@@ -1,6 +1,15 @@
-exports.s3Delete = async (filePath, watchPath, s3, s3Config = {}) => {
+const { dateNow, writeLog } = require(`${__func}/common`);
+const { IGNORE_FILES_TO_S3, IGNORE_FOLDERS } = require(`${__consts}/regex`);
+const logPath = require(`${__consts}/log`);
+
+exports.s3Delete = async (filePath, watchPath, s3, s3Config = {}, options) => {
     try {
         const Key = filePath.replace(watchPath, '');
+        const filename = Key.split('/').pop();
+        // console.log(new RegExp(IGNORE_FILES_TO_S3()).test(filename), 'new RegExp(IGNORE_FILES_TO_S3()).test(filename)');
+        if (new RegExp(IGNORE_FILES_TO_S3()).test(filename)) return false;
+        // check if folder need to be ignored
+        if (IGNORE_FOLDERS(Key)) return false;
 
         const s3Params = {
             Bucket: s3Config.bucket,
@@ -18,7 +27,12 @@ exports.s3Delete = async (filePath, watchPath, s3, s3Config = {}) => {
         //     }
         //     */
         // });
-        console.log(`File ${filePath} has been removed`)
+        await writeLog(
+            options.logPath.remove || logPath.remove,
+            `${JSON.stringify(s3do)}\n${dateNow()} - File ${filePath} has been removed\n`
+        );
+        console.log(`${JSON.stringify(s3do)}\n${dateNow()} - File ${filePath} has been removed`);
+        // console.log(`File ${filePath} has been removed`)
     } catch (e) {
         console.log(e, 's3Delete');
     }
