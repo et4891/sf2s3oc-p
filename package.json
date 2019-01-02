@@ -1,6 +1,6 @@
 {
   "name": "sf2s3oc-p",
-  "version": "0.4.6",
+  "version": "0.5.6",
   "description": "Sync Folder To S3 On Change",
   "main": "index.js",
   "scripts": {
