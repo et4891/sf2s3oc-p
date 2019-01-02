@@ -40,7 +40,7 @@ const mkDirByPathSync = (targetDir, { isRelativeToScript = false } = {}) => {
 };
 
 exports.writeLog = (fullPath, content) => {
-
+    console.log(fullPath, 'fullPathfullPathfullPath');
     const pathSplit = fullPath.split('/');
     const filename = pathSplit.pop();
     const directory = pathSplit.join('/');

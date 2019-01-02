@@ -1,6 +1,9 @@
 # sf2s3oc-p
 
 ## ChangeLog
+### Jan. 1, 2019
+**v0.3.5**
+- added `logPath` to log changes
 
 ### Dec. 31, 2018
 **v0.3.4**

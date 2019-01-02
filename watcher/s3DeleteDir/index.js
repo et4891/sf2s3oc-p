@@ -1,4 +1,5 @@
 const { dateNow, writeLog } = require(`${__func}/common`);
+const logPath = require(`${__consts}/log`);
 
 exports.s3DeleteDir = async (filePath, watchPath, s3, s3Config, options) => {
     try {
@@ -27,7 +28,10 @@ exports.s3DeleteDir = async (filePath, watchPath, s3, s3Config, options) => {
             deleteParams.Delete.Objects.push({ Key });
         });
 
-        await writeLog(options.logPath.remove, `${dateNow()} - Directory ${filePath} has been removed\n`);
+        await writeLog(
+            options.logPath.remove || logPath.remove,
+            `${dateNow()} - Directory ${filePath} has been removed\n`
+        );
         console.log(`Directory ${filePath} has been removed`);
     } catch (e) {
         console.log(e.code, 's3DeleteDir');

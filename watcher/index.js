@@ -14,11 +14,7 @@ module.exports = {
         awsConfig = {},
         s3Config = {},
         options = {
-            logPath: {
-                add: './log/add.txt',
-                modified: './log/modified.txt',
-                remove: './log/remove.txt',
-            }
+            logPath: {}
         }
     ) {
         if (!watchPath) return this.log('Please enter a path to watch');
