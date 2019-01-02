@@ -13,7 +13,9 @@ module.exports = {
         watchPath = false,
         awsConfig = {},
         s3Config = {},
-        options = {}
+        options = {
+            logPath: {}
+        }
     ) {
         if (!watchPath) return this.log('Please enter a path to watch');
         AWS.config.update({
@@ -28,10 +30,10 @@ module.exports = {
 
         // Add event listeners.
         watcher
-            .on('add', filePath => s3Put(filePath, watchPath, s3, s3Config))
-            .on('unlink', filePath => s3Delete(filePath, watchPath, s3, s3Config))
+            .on('add', filePath => s3Put(filePath, watchPath, s3, s3Config, options))
+            .on('unlink', filePath => s3Delete(filePath, watchPath, s3, s3Config, options))
             .on('addDir', path => (`Directory ${path} has been added`))
-            .on('unlinkDir', filePath => s3DeleteDir(filePath, watchPath, s3, s3Config))
+            .on('unlinkDir', filePath => s3DeleteDir(filePath, watchPath, s3, s3Config, options))
             .on('error', error => this.log(`Watcher error: ${error}`))
             .on('ready', () => this.log('Initial scan complete. Ready for changes'));
         // .on('raw', (event, path, details) => {
@@ -40,7 +42,7 @@ module.exports = {
 
         watcher.on('change', (filePath, stats) => {
             if (stats) this.log(`-----------File ${filePath} changed size to ${stats.size}-----------`);
-            s3Put(filePath, watchPath, s3, s3Config);
+            s3Put(filePath, watchPath, s3, s3Config, options);
         });
     }
 };
