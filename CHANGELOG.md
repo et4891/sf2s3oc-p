@@ -2,6 +2,9 @@
 
 ## ChangeLog
 ### Jan. 1, 2019
+**v0.4.6**
+- es5 class -> es6 with setter
+
 **v0.4.5**
 - added `class` way to create watch instead of function
 - added `logPath` to log changes

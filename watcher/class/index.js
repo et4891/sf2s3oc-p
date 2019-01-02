@@ -1,18 +1,43 @@
 const { startWatch } = require('../class/start');
 
-module.exports = function (
-    watchPath = false,
-    awsConfig = {},
-    s3Config = {},
-    options = {
-        logPath: {}
+class Watch {
+    constructor(
+        _watchPath = false,
+        _awsConfig = {},
+        _s3Config = {},
+        _options = {
+            logPath: {}
+        }
+    ) {
+        this.log = console.log.bind(console);
+        this.watchPath = _watchPath;
+        this.awsConfig = _awsConfig;
+        this.s3Config = _s3Config;
+        this.options = _options;
+        this.start = () => startWatch(this._watchPath, this._awsConfig, this._s3Config, this._options);
     }
-) {
-    this.log = console.log.bind(console);
-    this.watchPath = watchPath;
-    this.awsConfig = awsConfig;
-    this.s3Config = s3Config;
-    this.options = options;
 
-    this.start = () => startWatch(this.watchPath, this.awsConfig, this.s3Config, this.options);
-};
+    set watchPath( watchpath ) {
+        this._watchPath = watchpath;
+    }
+
+    set awsConfig( {
+                       accessKeyId = null,
+                       secretAccessKey = null
+                   } ) {
+        this._awsConfig = { accessKeyId, secretAccessKey }
+    }
+
+    set s3Config( { bucket = null } ) {
+        this._s3Config = { bucket };
+    }
+
+    set options( { logPath = {} } ) {
+        this._options = {
+            logPath
+        }
+    }
+
+}
+
+module.exports = Watch;
