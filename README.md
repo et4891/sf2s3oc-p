@@ -9,9 +9,9 @@ create a file with the script below e.g. `watch.js`
 ```js
 const sf2s3oc = require('sf2s3oc-p');
 
-// uses function
+// FUNCTION
 sf2s3oc.default.start(
-    'folder path',
+    'folder/path/',  // with ending slash else aws will create a nested folder named ___
     {
         accessKeyId: 'aws accessKeyId',
         secretAccessKey: 'aws secretAccessKey'
@@ -19,27 +19,10 @@ sf2s3oc.default.start(
     { bucket: 's3 bucket' }
 );
 
-// uses class
-const nw = new sf2s3oc.class(
-    'folder path',
-    {
-        accessKeyId: 'aws accessKeyId',
-        secretAccessKey: 'aws secretAccessKey'
-    },
-    { bucket: 's3 bucket' }
-);
-
-nw.start();
-```
-### Run
-run using `node/nodemon/pm2 path` e.g `node index` or `pm2 index`
-
-### Change Default Log Path Example
-pass 4th param
-
-```javascript
+// Change Default Log Path Example
+// pass 4th param
 sf2s3oc.default.start(
-    'folder path',
+    'folder/path/',  // with ending slash else aws will create a nested folder named ___
     {
         accessKeyId: 'aws accessKeyId',
         secretAccessKey: 'aws secretAccessKey'
@@ -53,4 +36,37 @@ sf2s3oc.default.start(
         }
     }
 );
+
+// CLASS
+// passing all params like how function is used
+const nw = new sf2s3oc.class(
+    'folder/path/',  // with ending slash else aws will create a nested folder named ___
+    {
+        accessKeyId: 'aws accessKeyId',
+        secretAccessKey: 'aws secretAccessKey'
+    },
+    { bucket: 's3 bucket' }
+);
+nw.start();
+
+// example with setters
+
+const anw = new s.class();
+
+anw.watchPath = 'folder/path/';  // with ending slash else aws will create a nested folder named ___
+anw.awsConfig = {
+    accessKeyId: 'aws accessKeyId',
+    secretAccessKey: 'aws secretAccessKey'
+};
+anw.s3Config = { bucket: 's3 bucket' };
+anw.options = {
+    logPath: {
+        add: './log/add.txt',  // this is the default
+        modified: './logs/modified.txt',  // this is the default
+        remove: './log/remove.txt',  // this is the default
+    }
+};
+anw.start();
 ```
+### Run
+run using `node/nodemon/pm2 path` e.g `node index` or `pm2 index`
