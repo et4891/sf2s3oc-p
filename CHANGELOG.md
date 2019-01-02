@@ -2,6 +2,9 @@
 
 ## ChangeLog
 ### Jan. 1, 2019
+**v0.5.6**
+- `require('package')()` require with param
+
 **v0.4.6**
 - es5 class -> es6 with setter
 

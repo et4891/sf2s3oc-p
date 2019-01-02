@@ -4,13 +4,14 @@
 $ npm install sf2s3oc-p -S
 ```
 
-## Usage
-create a file with the script below e.g. `watch.js`
-```js
-const sf2s3oc = require('sf2s3oc-p');
+## To Start
+first create a file with the script below e.g. `watch.js`
 
-// FUNCTION
-sf2s3oc.default.start(
+## Usage (Function)
+```js
+const sf2s3oc = require('sf2s3oc-p')();
+
+sf2s3oc.start(
     'folder/path/',  // with ending slash else aws will create a nested folder named ___
     {
         accessKeyId: 'aws accessKeyId',
@@ -21,7 +22,7 @@ sf2s3oc.default.start(
 
 // Change Default Log Path Example
 // pass 4th param
-sf2s3oc.default.start(
+sf2s3oc.start(
     'folder/path/',  // with ending slash else aws will create a nested folder named ___
     {
         accessKeyId: 'aws accessKeyId',
@@ -36,10 +37,12 @@ sf2s3oc.default.start(
         }
     }
 );
+````
 
-// CLASS
-// passing all params like how function is used
-const nw = new sf2s3oc.class(
+## Usage (Class)
+```js
+const sf2s3oc = require('sf2s3oc-p')('class');
+const nw = new sf2s3oc(
     'folder/path/',  // with ending slash else aws will create a nested folder named ___
     {
         accessKeyId: 'aws accessKeyId',
@@ -51,7 +54,7 @@ nw.start();
 
 // example with setters
 
-const anw = new s.class();
+const anw = new s();
 
 anw.watchPath = 'folder/path/';  // with ending slash else aws will create a nested folder named ___
 anw.awsConfig = {
