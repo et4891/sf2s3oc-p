@@ -1,6 +1,10 @@
 # sf2s3oc-p
 
 ## ChangeLog
+### Jan. 6, 2019
+**v0.6.6**
+- added ignore to options to ignore folders and files as wished
+
 ### Jan. 1, 2019
 **v0.5.6**
 - `require('package')()` require with param
