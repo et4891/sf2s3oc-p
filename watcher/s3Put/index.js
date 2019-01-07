@@ -13,7 +13,6 @@ exports.s3Put = async (filePath, watchPath, s3, s3Config = {}, options) => {
             const Key = filePath.replace(watchPath, '');
             const filename = Key.split('/').pop();
 
-            clog(options, 'options');
             // if filename is within the regex, ignore the file.  Do nothing.
             if (new RegExp(regexIgnore(options.ignore.files || REGEXS.files))
                     .test(filename)) return false;
