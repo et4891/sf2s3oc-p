@@ -15,9 +15,10 @@ exports.s3Put = async (filePath, watchPath, s3, s3Config = {}, options) => {
 
             // if filename is within the regex, ignore the file.  Do nothing.
             // console.log(new RegExp(IGNORE_FILES_TO_S3()).test(filename), 'new RegExp(IGNORE_FILES_TO_S3()).test(filename)');
-            if (new RegExp(IGNORE_FILES_TO_S3()).test(filename)) return false;
+            if (new RegExp(IGNORE_FILES_TO_S3).test(filename)) return false;
             // check if folder need to be ignored
-            if (IGNORE_FOLDERS(Key)) return false;
+            // if (IGNORE_FOLDERS(Key)) return false;
+            if (new RegExp(IGNORE_FOLDERS).test(Key)) return false;
 
             const getStat = await getFileStat(filePath);
             // console.log(getStat, 'getstatsssssssssssssss');
