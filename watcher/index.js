@@ -14,7 +14,8 @@ module.exports = {
         awsConfig = {},
         s3Config = {},
         options = {
-            logPath: {}
+            logPath: {},
+            ignore: {}
         }
     ) {
         if (!watchPath) return this.log('Please enter a path to watch');

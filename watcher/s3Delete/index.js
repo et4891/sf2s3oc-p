@@ -7,9 +7,9 @@ exports.s3Delete = async (filePath, watchPath, s3, s3Config = {}, options) => {
         const Key = filePath.replace(watchPath, '');
         const filename = Key.split('/').pop();
         // console.log(new RegExp(IGNORE_FILES_TO_S3()).test(filename), 'new RegExp(IGNORE_FILES_TO_S3()).test(filename)');
-        if (new RegExp(IGNORE_FILES_TO_S3()).test(filename)) return false;
+        // if (new RegExp(IGNORE_FILES_TO_S3).test(filename)) return false;
         // check if folder need to be ignored
-        if (IGNORE_FOLDERS(Key)) return false;
+        // if (new RegExp(IGNORE_FOLDERS).test(Key)) return false;
 
         const s3Params = {
             Bucket: s3Config.bucket,

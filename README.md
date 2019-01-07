@@ -20,7 +20,7 @@ sf2s3oc.start(
     { bucket: 's3 bucket' }
 );
 
-// Change Default Log Path Example
+// Change Default options Example
 // pass 4th param
 sf2s3oc.start(
     'folder/path/',  // with ending slash else aws will create a nested folder named ___
@@ -34,12 +34,22 @@ sf2s3oc.start(
             add: 'path to log',
             modified: 'path to log',
             remove: 'path to log',
+        },
+        ignore: {
+            folders: {
+                GNUPG: '^.gnupg.*',
+                HELLO: '^.hello.*'
+            },
+            files: {
+                GOUTPUTSTREAM: '^.goutputstream.*',
+                HELLO: '^.hello.*',
+            }
         }
     }
 );
 ````
 
-## Usage (Class)
+## Usage (Class) *RECOMMENDED*
 ```js
 const sf2s3oc = require('sf2s3oc-p')('class');
 const nw = new sf2s3oc(
@@ -52,8 +62,7 @@ const nw = new sf2s3oc(
 );
 nw.start();
 
-// example with setters
-
+// example with setters and extra params for options
 const anw = new s();
 
 anw.watchPath = 'folder/path/';  // with ending slash else aws will create a nested folder named ___
@@ -67,6 +76,16 @@ anw.options = {
         add: './log/add.txt',  // this is the default
         modified: './logs/modified.txt',  // this is the default
         remove: './log/remove.txt',  // this is the default
+    },
+    ignore: {
+        folders: {
+            GNUPG: '^.gnupg.*',  // default
+            HELLO: '^.hello.*'  // default for testing
+        },
+        files: {
+            GOUTPUTSTREAM: '^.goutputstream.*',  // default
+            HELLO: '^.hello.*',  // default for testing
+        }
     }
 };
 anw.start();

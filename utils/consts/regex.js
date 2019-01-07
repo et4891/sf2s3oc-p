@@ -1,16 +1,18 @@
 // using string as value because we might do multiple regex check such as using IGNORE_FILES_TO_S3
-const REGEXS = {
+// can be using array instead of object which is less coding but rather use object because the value can be a description
+exports.REGEXS = {
     files: {
         GOUTPUTSTREAM: '^.goutputstream.*', // any files starts with .goutputstream this is because when file is edited, this file will be created automatically and removed
         HELLO: '^.hello.*', // testing purpose to combine regex
     },
     folders: {
-        GNUPG: '.gnupg', // any files starts with .goutputstream this is because when file is edited, this file will be created automatically and removed
+        GNUPG: '^.gnupg.*',
+        HELLO: '^.hello.*'
     }
 };
 
-exports.IGNORE_FILES_TO_S3 = () => {
-    const rf = REGEXS.files;
+/* rf means regex files / folders  */
+exports.regexIgnore = (rf) => {
     let regexArr = [];
     for (const key of Object.keys(rf)) {
         regexArr.push(rf[key]);
@@ -18,12 +20,6 @@ exports.IGNORE_FILES_TO_S3 = () => {
     return regexArr.join('|');
 };
 
+// exports.IGNORE_FILES_TO_S3 = regexIgnore(REGEXS.files);
 
-exports.IGNORE_FOLDERS = (chars) => {
-    const rf = REGEXS.folders;
-    // if the folders match then ignore
-    for (const key of Object.keys(rf)) {
-        if (chars.includes(rf[key])) return true;
-    }
-    return false;
-};
+// exports.IGNORE_FOLDERS = regexIgnore(REGEXS.folders);
