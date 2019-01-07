@@ -1,15 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-exports.getFileStat = (path) => {
-    return new Promise((res, rej) => {
-        fs.stat(path, (err, stat) => {
-            if (err) rej(err);
-            res(stat);
-        });
-    });
-};
-
 const mkDirByPathSync = (targetDir, { isRelativeToScript = false } = {}) => {
     const sep = path.sep;
     const initDir = path.isAbsolute(targetDir) ? sep : '';
@@ -37,6 +28,20 @@ const mkDirByPathSync = (targetDir, { isRelativeToScript = false } = {}) => {
 
         return curDir;
     }, initDir);
+};
+
+exports.clog = (log, title) => {
+    console.log(`----------------${title}----------------`);
+    console.log(log);
+};
+
+exports.getFileStat = (path) => {
+    return new Promise((res, rej) => {
+        fs.stat(path, (err, stat) => {
+            if (err) rej(err);
+            res(stat);
+        });
+    });
 };
 
 exports.writeLog = (fullPath, content) => {

@@ -32,9 +32,13 @@ class Watch {
         this._s3Config = { bucket };
     }
 
-    set options( { logPath = {} } ) {
+    set options( {
+                     logPath = {},
+                     ignore = {}
+                 } ) {
         this._options = {
-            logPath
+            logPath,
+            ignore
         }
     }
 
